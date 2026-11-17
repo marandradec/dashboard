@@ -4,8 +4,11 @@ import { Grid } from '@mui/material';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI';
+import IndicatorUI from './components/IndicatorUI';
+import useFetchData from './hooks/useFetchData';
 
 function App() {
+    const dataFetcherOutput = useFetchData();
 
     const [city, setCity] = useState('');
 
@@ -40,9 +43,36 @@ function App() {
             </Grid>
 
             {/* Indicadores */}
-            <Grid size={{ xs: 12, md: 9 }}>
-                Elemento: Indicadores
-                {cityText}
+            <Grid container size={{ xs: 12, md: 9 }}>
+
+                <Grid size={{ xs: 12, md: 3 }}>
+                    <IndicatorUI 
+                        title='Temperatura (2m)' 
+                        description={`${dataFetcherOutput?.current?.temperature_2m ?? 'XX'} °C`} 
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 3 }}>
+                    <IndicatorUI 
+                        title='Temperatura aparente' 
+                        description={`${dataFetcherOutput?.current?.apparent_temperature ?? 'XX'} °C`} 
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 3 }}>
+                    <IndicatorUI 
+                        title='Velocidad del viento' 
+                        description={`${dataFetcherOutput?.current?.wind_speed_10m ?? 'XX'} km/h`} 
+                    />
+                </Grid>
+
+                <Grid size={{ xs: 12, md: 3 }}>
+                    <IndicatorUI 
+                        title='Humedad relativa' 
+                        description={`${dataFetcherOutput?.current?.relative_humidity_2m ?? 'XX'} %`} 
+                    />
+                </Grid>
+
             </Grid>
 
             {/* Gráfico */}
